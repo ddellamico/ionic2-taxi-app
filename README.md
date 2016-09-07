@@ -1,6 +1,6 @@
 #Ionic 2 Taxi App
 
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Build Status](https://travis-ci.org/ddellamico/ionic2-taxi-app.svg?branch=master)](https://travis-ci.org/ddellamico/ionic2-taxi-app) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 The main purpose for this project, it's provide a simple starting point for building 'on-demand/rideshare taxi' ionic application ( something like Uber, Lyft or Sidecar .. ) or more generally, applications using extensively Google Maps JavaScript API. 
 
