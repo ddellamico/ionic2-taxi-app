@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Taxi rides</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="ride-list">
+  <ion-list>
+    <h3 *ngIf="rides.length === 0" text-center padding>No rides found</h3>
+    <ion-item *ngFor="let ride of rides" class="ride">
+      <h3>
+        <ion-icon name="flag" item-left></ion-icon>
+        {{ ride.departure }}
+      </h3>
+      <h3>
+        <ion-icon name="pin" item-left></ion-icon>
+        {{ ride.destination }}
+      </h3>
+      <p padding>{{ ride.rideDate | date:'medium' }}</p>
+      <ion-icon name="checkmark-circle" secondary item-right></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>

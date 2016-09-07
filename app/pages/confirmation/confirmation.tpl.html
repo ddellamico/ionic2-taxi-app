@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Confirmation</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="confirmation">
+  <ion-list>
+    <form [formGroup]="form" (ngSubmit)="onConfirm(form.value, form.valid)" novalidate>
+      <ion-item>
+        <ion-icon name="flag" item-left></ion-icon>
+        <input type="text" formControlName="departure" [(ngModel)]="departure" placeholder="Departure">
+        <!--<ion-input type="text" formControlName="departure" [(ngModel)]="departure" placeholder="Departure"></ion-input>-->
+      </ion-item>
+      <ion-item>
+        <ion-icon name="pin" item-left></ion-icon>
+        <input type="text" formControlName="destination" placeholder="Destination">
+        <!--<ion-input type="text" formControlName="destination" placeholder="Destination"></ion-input>-->
+      </ion-item>
+      <div padding>
+        <button [disabled]="!form.valid" type="submit" primary block>Confirm</button>
+      </div>
+    </form>
+  </ion-list>
+</ion-content>

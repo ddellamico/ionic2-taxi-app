@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-searchbar #searchbar placeholder="Pickup location"></ion-searchbar>
+    <ion-buttons end>
+      <button (click)="dismiss()">
+        <span primary showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let place of nearbyPlaces" (click)="selectPlace(place)">
+      <ion-avatar item-left>
+        <img [src]="place.icon">
+      </ion-avatar>
+      <h3>{{ place.name }}</h3>
+      <p>{{ place.vicinity }}</p>
+      <p>Distance: {{ place.distance }} meters</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
