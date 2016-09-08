@@ -34,20 +34,10 @@ If you are looking for a more complex and complete Ionic 2 app sample, take a lo
   * [Typedoc](https://github.com/TypeStrong/typedoc)
 
 ## Install
-  **Make sure you have Node version >= 5.0 and NPM >= 3**
+  **Make sure you have Node version >= 5.0 and NPM >= 3** (node.js version used 6.4.0 and NPM v. 3.10.3)
   
-  **NOTE:** [better-npm-run](https://github.com/benoror/better-npm-run) is used to manage environment variables from a `.env` file.
-  Place in root project a `.env` file and "overwrite" the default values.
-  In `development` env, you can set the env variables by doing:
-
   ```bash
-  cp .env.dev.example .env
-  ```
-
-  and replace the values there.
-  
-  > Clone the repo
-  ```bash
+  # Clone the repo
   $ git clone https://github.com/ddellamico/ionic2-taxi-app
   # change directory to our repo
   cd ionic2-taxi-app
@@ -87,10 +77,9 @@ If you are looking for a more complex and complete Ionic 2 app sample, take a lo
 $ npm test
 ```
   
- This post help me a lot to setup test environment with karma : http://lathonez.github.io/2016/ionic-2-unit-testing/
+ This [post](http://lathonez.github.io/2016/ionic-2-unit-testing) help me a lot to setup test environment with karma.
  Thanks [Lathonez](http://lathonez.github.io) !
  
-
 ## Changelog
 
 You can check the changelog [here](https://github.com/ddellamico/ionic2-taxi-app/blob/master/CHANGELOG.md)
