@@ -9,7 +9,7 @@
 import { provide } from '@angular/core';
 import { beforeEachProviders, inject } from '@angular/core/testing';
 import { Events, Platform } from 'ionic-angular';
-import { TaxiApp } from './app';
+import { TaxiApp } from './app.component';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 // Mock out Ionic's platform class
