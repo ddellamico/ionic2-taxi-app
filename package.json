@@ -22,7 +22,6 @@
     "url": "https://github.com/ddellamico/ionic2-taxi-app.git"
   },
   "scripts": {
-    "stats": "bnr stats",
     "dev": "bnr dev",
     "build": "bnr build",
     "build-dev": "bnr build-dev",
@@ -86,7 +85,7 @@
       }
     },
     "ios:release": {
-      "command": "webpack && ionic build ios",
+      "command": "ionic build ios --prod",
       "env": {
         "NODE_ENV": "production",
         "PLATFORM": "ios"
@@ -100,16 +99,10 @@
       }
     },
     "android:release": {
-      "command": "tslint \"app/**/*.ts\" && webpack && ionic build android",
+      "command": "ionic build android --prod",
       "env": {
         "NODE_ENV": "production",
         "PLATFORM": "android"
-      }
-    },
-    "stats": {
-      "command": "webpack --profile --json > stats.json",
-      "env": {
-        "NODE_ENV": "production"
       }
     }
   },
