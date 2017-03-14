@@ -1,4 +1,4 @@
-#Ionic 2 Taxi App
+# Ionic 2 Taxi App
 
 [![Build Status](https://travis-ci.org/ddellamico/ionic2-taxi-app.svg?branch=master)](https://travis-ci.org/ddellamico/ionic2-taxi-app) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT) [![Dependency Status](https://david-dm.org/ddellamico/ionic2-taxi-app.svg)](https://david-dm.org/ddellamico/ionic2-taxi-app) [![devDependency Status](https://david-dm.org/ddellamico/ionic2-taxi-app/dev-status.svg)](https://david-dm.org/ddellamico/ionic2-taxi-app#info=devDependencies)
