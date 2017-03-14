@@ -4,54 +4,78 @@
  * @license   GPL-3.0
  */
 
-import { provide } from '@angular/core';
-import { beforeEach, beforeEachProviders, describe, expect, it, inject, async } from '@angular/core/testing';
-import { ComponentFixture, TestComponentBuilder }     from '@angular/compiler/testing';
+import { ViewController, AlertController } from 'ionic-angular';
+import { TestBed, ComponentFixture, async } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { TaxiApp } from '../../app/app.component';
 import { MapComponent } from './map';
-import { MapServiceMock } from '../../providers/map/map-mock.service';
+import { GeocoderServiceMock } from '../../providers/map/geocoder-mock.service';
+import { GeocoderService } from '../../providers/map/geocoder.service';
 import { MapService } from '../../providers/map/map.service';
+import { MapServiceMock } from '../../providers/map/map-mock.service';
+import { NavMock, ViewControllerMock, AlertControllerMock } from '../../ionic-mock';
+import { RideService } from '../../providers/ride/ride.service';
+import { RideServiceMock } from '../../providers/ride/ride-mock.service';
 
-describe('MapComponent', () => {
-  beforeEachProviders(() => [
-    TestComponentBuilder,
-    provide(MapService, {useClass: MapServiceMock})
-  ]);
+describe('Component: Map', () => {
 
-  let tcb: TestComponentBuilder, mapService: MapServiceMock;
-  beforeEach(async(inject([TestComponentBuilder, MapService], (_tcb: TestComponentBuilder,
-                                                               _mapService: MapServiceMock) => {
-    tcb = _tcb;
-    mapService = _mapService;
-  })));
+  let comp: MapComponent;
+  let fixture: ComponentFixture<MapComponent>;
+  let de: DebugElement;
+  let el: HTMLElement;
+  let mapService: MapService;
+  let rideService: RideService;
+  let geocoderService: GeocoderServiceMock;
 
-  it('should render div map container', () => {
-    return tcb.createAsync(MapComponent).then((fixture: ComponentFixture<MapComponent>) => {
-      const element = fixture.nativeElement;
-      const instance = fixture.componentInstance;
-      fixture.detectChanges();
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      declarations: [TaxiApp, MapComponent],
+      providers: [
+        {provide: NavController, useClass: NavMock},
+        {provide: ViewController, useClass: ViewControllerMock},
+        {provide: AlertController, useClass: AlertControllerMock},
+        {provide: RideService, useClass: RideServiceMock},
+        {provide: MapService, useClass: MapServiceMock},
+        {provide: GeocoderService, useClass: GeocoderServiceMock}
+      ]
+    }).compileComponents();
+  }));
 
-      expect(element).not.toBeNull();
-      expect(instance).not.toBeNull();
-      expect(element.querySelectorAll('div#gmaps').length).toBe(1);
-    });
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MapComponent);
+    comp = fixture.componentInstance;
+    de = fixture.debugElement;
+
+    mapService = TestBed.get(MapService);
+    rideService = TestBed.get(RideService);
+    geocoderService = TestBed.get(GeocoderService);
+  });
+
+  afterEach(() => {
+    fixture.destroy();
+    comp = null;
+    de = null;
+    el = null;
+  });
+
+  it('is created', () => {
+    expect(fixture).toBeTruthy();
+    expect(comp).toBeTruthy();
   });
 
   it('should create a new map', () => {
-
     const _response = new Promise((resolve: Function) => {
       resolve(true);
     });
 
     spyOn(mapService, 'createMap').and.returnValue(_response);
 
-    return tcb.createAsync(MapComponent).then((fixture: ComponentFixture<MapComponent>) => {
-      const instance = fixture.componentInstance;
-      instance.ngAfterViewInit().then(() => {
-        expect(mapService.createMap).toHaveBeenCalled();
-        expect(instance.map).toBeTruthy();
-      });
-
+    const instance = fixture.componentInstance;
+    instance.ngAfterViewInit().then(() => {
+      expect(mapService.createMap).toHaveBeenCalled();
+      expect(instance.map).toBeTruthy();
     });
   });
-
 });

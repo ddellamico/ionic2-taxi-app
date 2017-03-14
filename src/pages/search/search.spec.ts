@@ -4,54 +4,80 @@
  * @license   GPL-3.0
  */
 
-import { beforeEach, beforeEachProviders, describe, expect, it, inject, async } from '@angular/core/testing';
-import { ComponentFixture, TestComponentBuilder }     from '@angular/compiler/testing';
-import { NavController, App, Config, ViewController, AlertController } from 'ionic-angular';
+import { IonicModule, Platform, ViewController, AlertController } from 'ionic-angular';
+import { TestBed, ComponentFixture, async } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { TaxiApp } from '../../app/app.component';
 import { SearchPage } from './search';
-import { provide } from '@angular/core';
-import { MapServiceMock } from '../../providers/map/map-mock.service';
+import { GeocoderServiceMock } from '../../providers/map/geocoder-mock.service';
+import { GeocoderService } from '../../providers/map/geocoder.service';
 import { MapService } from '../../providers/map/map.service';
-import { ConfigMock, ViewControllerMock, AlertControllerMock } from '../../mock-helper';
+import { MapServiceMock } from '../../providers/map/map-mock.service';
+import { NavMock, ViewControllerMock, AlertControllerMock } from '../../ionic-mock';
+import { RideService } from '../../providers/ride/ride.service';
+import { RideServiceMock } from '../../providers/ride/ride-mock.service';
 
-describe('SearchPage', () => {
-  beforeEachProviders(() => [
-    TestComponentBuilder,
-    NavController,
-    provide(ViewController, {useClass: ViewControllerMock}),
-    provide(AlertController, {useClass: AlertControllerMock}),
-    provide(Config, {useClass: ConfigMock}),
-    provide(App, {useClass: ConfigMock}),
-    provide(MapService, {useClass: MapServiceMock})
-  ]);
+describe('Page: SearchPage', () => {
 
-  let tcb: TestComponentBuilder, mapService: MapServiceMock;
-  beforeEach(async(inject([TestComponentBuilder, MapService], (_tcb: TestComponentBuilder,
-                                                               _mapService: MapServiceMock) => {
-    tcb = _tcb;
-    mapService = _mapService;
-  })));
+  let comp: SearchPage;
+  let fixture: ComponentFixture<SearchPage>;
+  let de: DebugElement;
+  let el: HTMLElement;
+  let mapService: MapService;
+  let rideService: RideService;
+  let geocoderService: GeocoderServiceMock;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      declarations: [TaxiApp, SearchPage],
+      providers: [
+        {provide: NavController, useClass: NavMock},
+        {provide: ViewController, useClass: ViewControllerMock},
+        {provide: AlertController, useClass: AlertControllerMock},
+        {provide: RideService, useClass: RideServiceMock},
+        {provide: MapService, useClass: MapServiceMock},
+        {provide: GeocoderService, useClass: GeocoderServiceMock}
+      ]
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(SearchPage);
+    comp = fixture.componentInstance;
+    de = fixture.debugElement;
+
+    mapService = TestBed.get(MapService);
+    rideService = TestBed.get(RideService);
+    geocoderService = TestBed.get(GeocoderService);
+  });
+
+  afterEach(() => {
+    fixture.destroy();
+    comp = null;
+    de = null;
+    el = null;
+  });
+
+  it('is created', () => {
+    expect(fixture).toBeTruthy();
+    expect(comp).toBeTruthy();
+  });
 
   it('should render `ion-content`', () => {
-
-    return tcb.createAsync(SearchPage).then((fixture: ComponentFixture<SearchPage>) => {
-      const element = fixture.nativeElement;
-      const instance = fixture.componentInstance;
-
-      expect(element).not.toBeNull();
-      expect(instance).not.toBeNull();
-      expect(element.querySelectorAll('ion-content').length).toBe(1);
-    });
+    fixture.detectChanges();
+    expect(de.nativeElement.querySelectorAll('ion-content').length).toBe(1);
   });
 
   it('should setup autocomplete and load nearby places', () => {
     spyOn(mapService, 'createAutocomplete').and.callThrough();
     spyOn(mapService, 'loadNearbyPlaces').and.callThrough();
 
-    return tcb.createAsync(SearchPage).then((fixture: ComponentFixture<SearchPage>) => {
-      fixture.detectChanges();
-      expect(mapService.createAutocomplete).toHaveBeenCalled();
-      expect(mapService.loadNearbyPlaces).toHaveBeenCalled();
-    });
-  });
+    fixture.componentInstance.ionViewDidLoad();
 
+    fixture.detectChanges();
+    expect(mapService.createAutocomplete).toHaveBeenCalled();
+    expect(mapService.loadNearbyPlaces).toHaveBeenCalled();
+  });
 });

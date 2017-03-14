@@ -8,7 +8,7 @@ import { Component, Output, EventEmitter, AfterViewInit, ViewChild } from '@angu
 import { MapService } from '../../providers/map/map.service';
 
 @Component({
-  selector: 'ddMap',
+  selector: 'it-map',
   template: `<div #map id="gmaps" data-tap-disabled="true"></div>`
 })
 
@@ -19,8 +19,8 @@ export class MapComponent implements AfterViewInit {
   @Output() onCenterChanged = new EventEmitter();
   @Output() onDragStart = new EventEmitter();
 
-  @ViewChild('map') mapCanvas;
-  private map: any = null;
+  @ViewChild('map') mapCanvas: any;
+  map: any = null;
 
   constructor(private mapService: MapService) {
   }
@@ -35,7 +35,7 @@ export class MapComponent implements AfterViewInit {
 
   private bindMapEvents(mapEl: HTMLElement): void {
     // Stop the side bar from dragging when mousedown/tapdown on the map
-    google.maps.event.addDomListener(mapEl, 'mousedown', (e) => {
+    google.maps.event.addDomListener(mapEl, 'mousedown', (e: any) => {
       e.preventDefault();
     });
 

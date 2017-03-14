@@ -1,24 +1,34 @@
+/**
+ * @author    Damien Dell'Amico <damien.dellamico@gmail.com>
+ * @copyright Copyright (c) 2017
+ * @license   GPL-3.0
+ */
+
 import { Component, ViewChild } from '@angular/core';
-import { HTTP_PROVIDERS } from '@angular/http';
-import { disableDeprecatedForms, provideForms } from '@angular/forms';
-import { ionicBootstrap, Platform, Nav } from 'ionic-angular';
+import { Platform, Nav } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
-import { HomePage } from './pages/home/home';
-import { AboutPage } from './pages/about/about';
-import { RideService } from './providers/ride/ride.service';
-import { RideListPage } from './pages/ride-list/ride-list';
-import { GeocoderService } from './providers/map/geocoder.service';
-import { MapService } from './providers/map/map.service';
+import { HomePage } from '../pages/home/home';
+import { AboutPage } from '../pages/about/about';
+import { RideListPage } from '../pages/ride-list/ride-list';
+
+export interface PageInterface {
+  title: string;
+  component: any;
+  icon: string;
+  logsOut?: boolean;
+  index?: number;
+  tabComponent?: any;
+}
 
 @Component({
-  template: require('./app.html')
+  templateUrl: 'app.template.html',
 })
 export class TaxiApp {
 
-  appPages: PageObj[] = [
+  appPages: PageInterface[] = [
     {title: 'Map', component: HomePage, index: 1, icon: 'map'},
     {title: 'Taxi rides', component: RideListPage, index: 2, icon: 'car'},
-    {title: 'About', component: AboutPage, index: 3, icon: 'information-circle'}
+    {title: 'About', component: AboutPage, index: 3, icon: 'information-circle'},
   ];
 
   rootPage: any = HomePage;
@@ -30,6 +40,8 @@ export class TaxiApp {
   constructor(private platform: Platform) {
     // Call any initial plugins when ready
     platform.ready().then(() => {
+      // Okay, so the platform is ready and our plugins are available.
+      // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       Splashscreen.hide();
       // https://github.com/apache/cordova-plugin-inappbrowser
@@ -41,15 +53,16 @@ export class TaxiApp {
     });
   }
 
-  openPage(page: PageObj) {
+  openPage(page: PageInterface) {
     // the nav component was found using @ViewChild(Nav)
     // reset the nav to remove previous pages and only have this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    if (page.index) {
+      this.nav.setRoot(page.component, { tabIndex: page.index });
+    } else {
+      this.nav.setRoot(page.component).catch(() => {
+        console.log("Didn't set nav root");
+      });
+    }
   }
 }
-
-ionicBootstrap(TaxiApp, [MapService, GeocoderService, RideService, HTTP_PROVIDERS,
-  disableDeprecatedForms(), // disable deprecated forms
-  provideForms(), // enable new forms module
-], {});

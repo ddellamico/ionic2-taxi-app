@@ -15,12 +15,11 @@ import { ConfirmationPage } from '../confirmation/confirmation';
 import { BasePage } from '../base-page';
 
 @Component({
-  template: require('./home.tpl.html'),
-  directives: [MapComponent]
+  templateUrl: 'home.tpl.html'
 })
 export class HomePage extends BasePage {
 
-  private localized: boolean = false;
+  localized: boolean = false;
 
   constructor(private platform: Platform,
               private nav: NavController,
@@ -87,7 +86,7 @@ export class HomePage extends BasePage {
    */
   private locate(): Promise<any> {
     const loader = this.loadingCtrl.create({
-      content: 'Please wait...'
+      content: 'Please wait...',
     });
     loader.present();
     return this.mapService.setPosition().then(() => {
@@ -115,7 +114,7 @@ export class HomePage extends BasePage {
         handler: () => {
           setTimeout(() => this.locate(), 1500);
         }
-      }]
+      }],
     });
     alert.present();
   }

@@ -9,15 +9,13 @@
       <ion-item>
         <ion-icon name="flag" item-left></ion-icon>
         <input type="text" formControlName="departure" [(ngModel)]="departure" placeholder="Departure">
-        <!--<ion-input type="text" formControlName="departure" [(ngModel)]="departure" placeholder="Departure"></ion-input>-->
       </ion-item>
       <ion-item>
         <ion-icon name="pin" item-left></ion-icon>
         <input type="text" formControlName="destination" placeholder="Destination">
-        <!--<ion-input type="text" formControlName="destination" placeholder="Destination"></ion-input>-->
       </ion-item>
       <div padding>
-        <button [disabled]="!form.valid" type="submit" primary block>Confirm</button>
+        <button [disabled]="!form.valid" type="submit" ion-button block>Confirm</button>
       </div>
     </form>
   </ion-list>

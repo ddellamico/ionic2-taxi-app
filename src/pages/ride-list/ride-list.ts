@@ -11,7 +11,7 @@ import { BasePage } from '../base-page';
 import { RideModel } from '../../providers/ride/ride.model';
 
 @Component({
-  template: require('./ride-list.tpl.html')
+  templateUrl: 'ride-list.tpl.html'
 })
 export class RideListPage extends BasePage {
   rides: Array<RideModel> = [];

@@ -10,7 +10,7 @@ import { MapService } from '../../providers/map/map.service';
 import { BasePage } from '../base-page';
 
 @Component({
-  template: require('./search.tpl.html')
+  templateUrl: 'search.tpl.html'
 })
 
 export class SearchPage extends BasePage {
@@ -28,7 +28,7 @@ export class SearchPage extends BasePage {
     super(alertCtrl);
   }
 
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     this.initAutocomplete();
     this.loadNearbyPlaces();
   }

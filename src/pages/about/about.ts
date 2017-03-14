@@ -7,7 +7,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  template: require('./about.html')
+  templateUrl: 'about.html'
 })
 export class AboutPage {
 

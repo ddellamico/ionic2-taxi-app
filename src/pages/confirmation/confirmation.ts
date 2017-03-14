@@ -5,9 +5,8 @@
  */
 
 import { Component } from '@angular/core';
-import { Validators } from '@angular/common';
 import { AlertController, NavController } from 'ionic-angular';
-import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GeocoderService } from '../../providers/map/geocoder.service';
 import { RideModel } from '../../providers/ride/ride.model';
 import { RideService } from '../../providers/ride/ride.service';
@@ -16,8 +15,7 @@ import { RideListPage } from '../ride-list/ride-list';
 import { MapService } from '../../providers/map/map.service';
 
 @Component({
-  template: require('./confirmation.tpl.html'),
-  directives: [REACTIVE_FORM_DIRECTIVES]
+  templateUrl: 'confirmation.tpl.html'
 })
 export class ConfirmationPage extends BasePage {
   form: FormGroup;
@@ -33,9 +31,7 @@ export class ConfirmationPage extends BasePage {
               private geocoderService: GeocoderService,
               protected alertCtrl: AlertController) {
     super(alertCtrl);
-  }
 
-  ngOnInit(): void {
     this.form = this.fb.group({
       departure: ['', [Validators.required]],
       destination: ['', [Validators.required]]
@@ -74,5 +70,4 @@ export class ConfirmationPage extends BasePage {
     });
     prompt.present();
   }
-
 }

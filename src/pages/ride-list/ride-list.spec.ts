@@ -4,55 +4,81 @@
  * @license   GPL-3.0
  */
 
-import { beforeEach, beforeEachProviders, describe, expect, it, inject, async } from '@angular/core/testing';
-import { ComponentFixture, TestComponentBuilder }     from '@angular/compiler/testing';
-import { NavController, AlertController, Config, App } from 'ionic-angular';
+import { IonicModule, Platform } from 'ionic-angular';
+import { TestBed, ComponentFixture, async } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { TaxiApp } from '../../app/app.component';
 import { RideListPage } from './ride-list';
-import { provide } from '@angular/core';
-import { RideServiceMock } from '../../providers/ride/ride-mock.service';
+import { GeocoderServiceMock } from '../../providers/map/geocoder-mock.service';
+import { GeocoderService } from '../../providers/map/geocoder.service';
+import { MapService } from '../../providers/map/map.service';
+import { MapServiceMock } from '../../providers/map/map-mock.service';
+import { NavMock } from '../../ionic-mock';
 import { RideService } from '../../providers/ride/ride.service';
-import { AlertControllerMock, ConfigMock } from '../../mock-helper';
+import { RideServiceMock } from '../../providers/ride/ride-mock.service';
 
-describe('RideListPage', () => {
-  beforeEachProviders(() => [
-    TestComponentBuilder,
-    NavController,
-    provide(Config, {useClass: ConfigMock}),
-    provide(App, {useClass: ConfigMock}),
-    provide(AlertController, {useClass: AlertControllerMock}),
-    provide(RideService, {useClass: RideServiceMock}),
-  ]);
+describe('Page: RideListPage', () => {
 
-  let tcb: TestComponentBuilder, rideService: RideServiceMock;
-  beforeEach(async(inject([TestComponentBuilder, RideService], (_tcb: TestComponentBuilder,
-                                                                _rideService: RideServiceMock) => {
-    rideService = _rideService;
-    tcb = _tcb;
-  })));
+  let comp: RideListPage;
+  let fixture: ComponentFixture<RideListPage>;
+  let de: DebugElement;
+  let el: HTMLElement;
+  let mapService: MapService;
+  let rideService: RideService;
+  let geocoderService: GeocoderServiceMock;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      declarations: [TaxiApp, RideListPage],
+      providers: [
+        {provide: NavController, useClass: NavMock},
+        {provide: RideService, useClass: RideServiceMock},
+        {provide: MapService, useClass: MapServiceMock},
+        {provide: GeocoderService, useClass: GeocoderServiceMock}
+      ],
+      imports: [
+        IonicModule.forRoot(TaxiApp)
+      ]
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+
+    fixture = TestBed.createComponent(RideListPage);
+    comp = fixture.componentInstance;
+    de = fixture.debugElement;
+
+    mapService = TestBed.get(MapService);
+    rideService = TestBed.get(RideService);
+    geocoderService = TestBed.get(GeocoderService);
+  });
+
+  afterEach(() => {
+    fixture.destroy();
+    comp = null;
+    de = null;
+    el = null;
+  });
+
+  it('is created', () => {
+    expect(fixture).toBeTruthy();
+    expect(comp).toBeTruthy();
+  });
 
   it('should render `ion-content`', () => {
-    return tcb.createAsync(RideListPage).then((fixture: ComponentFixture<RideListPage>) => {
-      const element = fixture.nativeElement;
-      const instance = fixture.componentInstance;
-      fixture.detectChanges();
-
-      expect(element).not.toBeNull();
-      expect(instance).not.toBeNull();
-      expect(element.querySelectorAll('ion-content').length).toBe(1);
-    });
+    fixture.detectChanges();
+    expect(de.nativeElement.querySelectorAll('ion-content').length).toBe(1);
   });
 
   it('should fetch all taxi rides at page load', () => {
-
     spyOn(rideService, 'getRides').and.returnValue(Promise.resolve([]));
 
-    return tcb.createAsync(RideListPage).then((fixture: ComponentFixture<RideListPage>) => {
-      const instance = fixture.componentInstance;
-      instance.ionViewDidEnter();
+    const instance = fixture.componentInstance;
+    instance.ionViewDidEnter();
 
-      expect(rideService.getRides).toHaveBeenCalled();
-      expect(instance.rides).not.toBeUndefined();
-    });
+    expect(rideService.getRides).toHaveBeenCalled();
+    expect(instance.rides).not.toBeUndefined();
   });
-
 });

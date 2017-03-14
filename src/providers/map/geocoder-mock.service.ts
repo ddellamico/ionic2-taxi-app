@@ -10,7 +10,7 @@ export class GeocoderServiceMock {
 
   public fakeResponse: any = null;
 
-  public addressForlatLng(latlng: google.maps.LatLng): Observable<any> {
+  public addressForlatLng(): Observable<any> {
     return Observable.of(this.fakeResponse);
   }
 

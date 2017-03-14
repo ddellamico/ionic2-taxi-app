@@ -172,7 +172,7 @@ export class MapService {
 
     return new Observable((sub: any) => {
       placesService.nearbySearch(request, (results, status) => {
-        const _nearbyPlaces = [];
+        const _nearbyPlaces: Array<any> = [];
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           for (let i = 0; i < results.length; i++) {
             const place: any = results[i];
@@ -223,7 +223,6 @@ export class MapService {
       return pos.coords;
     });
   }
-
 
   /***
    * Create a script element to insert into the page

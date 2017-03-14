@@ -1,18 +1,18 @@
 <ion-header>
   <ion-navbar>
-    <button menuToggle>
+    <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Ionic Taxi</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content scroll="false" class="map-page">
-  <ddMap (onMapReady)="onMapReady();" (onMapIdle)="onMapIdle()" (onDragStart)="onDragStart()"></ddMap>
+  <it-map (onMapReady)="onMapReady();" (onMapIdle)="onMapIdle()" (onDragStart)="onDragStart()"></it-map>
   <div id="centerMarker" *ngIf="localized"></div>
-  <button fab primary fab-bottom fab-left class="fab-footer" (click)="goToConfirmation()">
-    <ion-icon name="ios-call"></ion-icon>
-  </button>
-  <button fab primary fab-bottom fab-right class="fab-footer" (click)="openModal()">
-    <ion-icon name="search"></ion-icon>
-  </button>
+  <ion-fab left bottom>
+    <button ion-fab color="primary" (click)="goToConfirmation()"><ion-icon name="ios-call"></ion-icon></button>
+  </ion-fab>
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="openModal()"><ion-icon name="search"></ion-icon></button>
+  </ion-fab>
 </ion-content>

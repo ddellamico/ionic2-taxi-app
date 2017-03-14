@@ -4,69 +4,64 @@
  * @license   GPL-3.0
  */
 
-// Reference http://lathonez.github.io/2016/ionic-2-unit-testing/
-
-import { provide } from '@angular/core';
-import { beforeEachProviders, inject } from '@angular/core/testing';
-import { Events, Platform } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 import { TaxiApp } from './app.component';
-import { StatusBar, Splashscreen } from 'ionic-native';
-
-// Mock out Ionic's platform class
-class PlatformMock {
-  public ready(): any {
-    return new Promise((resolve: Function) => {
-      resolve();
-    });
-  }
-}
-
-let taxiApp: TaxiApp;
+import { TestBed, ComponentFixture, async } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { PlatformMock } from '../ionic-mock';
 
 describe('TaxiApp', () => {
 
-  // provide our implementations or mocks to the dependency injector
-  beforeEachProviders(() => [
-    Events,
-    provide(Platform, {useClass: PlatformMock}),
-  ]);
+  let comp: TaxiApp;
+  let fixture: ComponentFixture<TaxiApp>;
+  let de: DebugElement;
+  let el: HTMLElement;
 
-  let platform;
-  beforeEach(inject([Platform], (_platform: Platform) => {
-    platform = _platform;
-    spyOn(_platform, 'ready').and.callThrough();
-
-    spyOn(StatusBar, 'styleDefault');
-    spyOn(Splashscreen, 'hide');
-
-    taxiApp = new TaxiApp(_platform);
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      declarations: [TaxiApp],
+      providers: [
+        {provide: Platform, useClass: PlatformMock}
+      ]
+    }).compileComponents();
   }));
 
+  beforeEach(() => {
+
+    fixture = TestBed.createComponent(TaxiApp);
+    comp = fixture.componentInstance;
+    de = fixture.debugElement;
+
+    // #trick
+    // If you want to trigger ionViewWillEnter automatically de-comment the following line
+    // fixture.componentInstance.ionViewWillEnter();
+
+    fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    fixture.destroy();
+    comp = null;
+    de = null;
+    el = null;
+  });
+
+  it('is created', () => {
+    expect(fixture).toBeTruthy();
+    expect(comp).toBeTruthy();
+  });
+
   it('should initialize with an app', () => {
-    expect(taxiApp['app']).not.toBe(null);
+    expect(comp['app']).not.toBe(null);
   });
 
   it('should have a root page', () => {
-    expect(taxiApp['rootPage']).not.toBe(null);
-  });
-
-  it('should call platform ready', () => {
-    expect(platform.ready).toHaveBeenCalled();
+    expect(comp['rootPage']).not.toBe(null);
   });
 
   it('should have 2 main pages', () => {
-    expect(taxiApp.appPages.length).toEqual(3);
+    expect(comp.appPages.length).toEqual(3);
   });
-
-  // TODO Why spy not working with plugins ?
-  // https://forum.ionicframework.com/t/unit-testing-ionic-native-statusbar/55670
-
-  /*  it('should call StatusBar plugin', () => {
-   expect(StatusBar.styleDefault).toHaveBeenCalled();
-   });
-
-   it('should call Splashscreen plugin', () => {
-   expect(Splashscreen.hide).toHaveBeenCalled();
-   });*/
 
 });
