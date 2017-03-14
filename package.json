@@ -1,6 +1,6 @@
 {
   "name": "ionic2-taxi-app",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Ionic 2 Taxi App - A simple starting point for building 'on-demand/rideshare taxi' ionic application ( something like Uber, Lyft or Sidecar .. )",
   "keywords": [
     "ionic",
