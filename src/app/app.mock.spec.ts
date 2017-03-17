@@ -9,6 +9,7 @@ import { TaxiApp } from './app.component';
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { PlatformMock } from '../ionic-mock';
+import {  } from 'jasmine';
 
 describe('TaxiApp', () => {
 

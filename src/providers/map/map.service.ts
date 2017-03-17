@@ -8,6 +8,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Geolocation, Geoposition } from 'ionic-native';
 import { MapConst } from './map.constants';
+import {  } from '@types/googlemaps';
 
 interface IMapOptions {
   lat: number;
