@@ -17,12 +17,12 @@ If you are looking for a more complex and complete Ionic 2 app sample, [check ou
 ## App Preview
 
 <p align="center">
-  <img src="http://damiendev.com/images/1_Home.png" alt="Home" width="250">
-  <img src="http://damiendev.com/images/2_Search.png" alt="Search" width="250">
-  <img src="http://damiendev.com/images/3_AutoComplete.png" alt="AutoComplete" width="250">
-  <img src="http://damiendev.com/images/4_Confirmation.png" alt="Confirmation" width="250">
-  <img src="http://damiendev.com/images/5_Rides.png" alt="Rides" width="250">
-  <img src="http://damiendev.com/images/6_Menu.png" alt="Menu" width="250">
+  <img src="http://37.139.10.18/images/1_Home.png" alt="Home" width="250">
+  <img src="http://37.139.10.18/images/2_Search.png" alt="Search" width="250">
+  <img src="http://37.139.10.18/images/3_AutoComplete.png" alt="AutoComplete" width="250">
+  <img src="http://37.139.10.18/images/4_Confirmation.png" alt="Confirmation" width="250">
+  <img src="http://37.139.10.18/images/5_Rides.png" alt="Rides" width="250">
+  <img src="http://37.139.10.18/images/6_Menu.png" alt="Menu" width="250">
 </p>
   
 ## Features
